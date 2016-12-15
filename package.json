@@ -1,0 +1,28 @@
+{
+  "name": "random-user-api",
+  "version": "1.0.0",
+  "description": "A service for getting mock data to test with during development.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "shellstartdb": "mongod --dbpath /usr/local/var/mongodb --port 37001",
+    "brewstartdb": "brew services start mongodb",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mongodb",
+    "express",
+    "node"
+  ],
+  "author": "Luke Taylor",
+  "license": "MIT",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "express": "^4.14.0",
+    "internal-ip": "^1.2.0",
+    "mongodb": "^2.2.16"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

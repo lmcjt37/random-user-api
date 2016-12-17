@@ -17,4 +17,8 @@ Feel free to contact me with suggestions/ideas/bugs or as above, simply publish 
 - [lmcjt.com](http://lmcjt.com)
 
 ##Pipeline
-- TBC
+- Retrieve users
+- Update users
+- Delete users
+- Add users via query
+- Get users via query

@@ -4,9 +4,9 @@
   "description": "A service for getting mock data to test with during development.",
   "main": "server.js",
   "scripts": {
+    "dev": "parallelshell 'npm run shellstartdb' 'npm run start'",
     "start": "nodemon server.js",
     "shellstartdb": "mongod --dbpath /usr/local/var/mongodb --port 37001",
-    "brewstartdb": "brew services start mongodb",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -17,12 +17,13 @@
   "author": "Luke Taylor",
   "license": "MIT",
   "dependencies": {
-    "assert": "^1.4.1",
     "express": "^4.14.0",
     "internal-ip": "^1.2.0",
-    "mongodb": "^2.2.16"
+    "mongodb": "^2.2.16",
+    "parallelshell": "^2.0.0"
   },
   "devDependencies": {
+    "assert": "^1.4.1",
     "nodemon": "^1.11.0"
   }
 }

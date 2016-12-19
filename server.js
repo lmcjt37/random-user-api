@@ -59,6 +59,28 @@ app.route('/add-user')
         });
     });
 
+app.get('/get-user/:name', (req, res, next) => {
+    mongoClient.connect(url, (err, db) => {
+        assert.equal(null, err);
+        var name;
+        if (req.params.name) {
+            name = req.params.name;
+        }
+
+        var collection = db.collection('users');
+        collection.find({}).toArray(function(err, docs) {
+            assert.equal(err, null);
+
+            res.writeHead(200, {"Content-Type": "text/plain"});
+            if (name) {
+                res.end(docs[name]);
+            } else {
+                res.end(docs);
+            }
+        });
+    });
+});
+
 app.listen(port, (err) => {
     if (err) {
         console.log(err);

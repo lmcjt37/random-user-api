@@ -18,10 +18,8 @@ Feel free to contact me with suggestions/ideas/bugs or as above, simply publish 
 
 ##Pipeline
 - Introduce unique ID's
-- Retrieve users
 - Update users
 - Delete users
 - Add users via query
-- Get users via query
 - Validation before POSTs
 - Style interface

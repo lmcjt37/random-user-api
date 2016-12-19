@@ -21,12 +21,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health-check', (req, res) => {
-    // Use connect method to connect to the server
     mongoClient.connect(url, (err, db) => {
       assert.equal(null, err);
 
-      res.writeHead(200, {"Content-Type": "text/plain"});
-      res.end("Connected successfully to server!\n");
+      res.set('Content-Type', 'text/plain');
+      res.status(200);
+      res.send("Connected successfully to server!\n");
 
       db.close();
     });
@@ -51,35 +51,61 @@ app.route('/add-user')
                 assert.equal(err, null);
                 assert.equal(1, result.insertedCount);
 
-                res.writeHead(200, {"Content-Type": "text/plain"});
-                res.end("Successfully added " + req.body.firstName + " " + req.body.lastName + " to database.\n");
+                res.set('Content-Type', 'text/plain');
+                res.status(200);
+                res.send("Successfully added " + req.body.firstName + " " + req.body.lastName + " to database.\n");
 
                 db.close();
             });
         });
     });
 
-app.get('/get-user/:name', (req, res, next) => {
+app.get('/get-users', (req, res) => {
     mongoClient.connect(url, (err, db) => {
         assert.equal(null, err);
-        var name;
-        if (req.params.name) {
-            name = req.params.name;
-        }
 
         var collection = db.collection('users');
-        collection.find({}).toArray(function(err, docs) {
+        collection.find({}).toArray((err, docs) => {
             assert.equal(err, null);
+            assert.notEqual(docs.length, 0);
 
-            res.writeHead(200, {"Content-Type": "text/plain"});
-            if (name) {
-                res.end(docs[name]);
-            } else {
-                res.end(docs);
-            }
+            res.set('Content-Type', 'text/plain');
+            res.status(200);
+            res.json(docs);
+            db.close();
         });
     });
 });
+
+app.route('/get-user')
+    .get((req, res, next) => {
+        res.sendFile(__dirname + "/views/get-user.html");
+    })
+    .post((req, res, next) => {
+        mongoClient.connect(url, (err, db) => {
+            assert.equal(null, err);
+
+            const query = {};
+            if (req.body.firstName) {
+                query.firstName = req.body.firstName;
+            }
+            if (req.body.lastName) {
+                query.lastName = req.body.lastName;
+            }
+
+            var collection = db.collection('users');
+            collection.find(query).toArray((err, docs) => {
+                assert.equal(err, null);
+                assert.notEqual(docs.length, 0);
+
+                res.set('Content-Type', 'text/plain');
+                res.status(200);
+                res.json(docs);
+
+                db.close();
+            });
+        });
+    });
 
 app.listen(port, (err) => {
     if (err) {

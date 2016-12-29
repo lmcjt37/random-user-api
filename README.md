@@ -19,7 +19,10 @@ The following are the available API's which can be called once the server is up 
 - Retrieves all users from the database.
 
 ###/get-user
-- Presents you with a simple form allowing you to enter a name and search the database for matches.
+- Presents you with a simple form allowing you to search the database for matches on either firstName, lastName or UID.
+
+###/delete-user
+- Presents you with a simple form allowing you to delete a matching UID from the database (Use /get-users to fetch a list of current users in the database).
 
 ##Contributions
 
@@ -34,7 +37,6 @@ Feel free to contact me with suggestions/ideas/bugs or as above, simply publish 
 
 ##Pipeline
 - Update users
-- Delete users
 - Retrieve users via query
 - Add users via query
 - Validation before POSTs

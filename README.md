@@ -38,7 +38,6 @@ Feel free to contact me with suggestions/ideas/bugs or as above, simply publish 
 ##Pipeline
 - Retrieve users via query
 - Add users via query
+- delete users via query (needs auth for deletion)
 - Validation before POSTs
-- Parse ID's from returned JSON
-- Present returned information in a more presentable way (i.e. table)
-- Style interface
+- Present returned information in a more presentable way (i.e. table) & Style the user interface

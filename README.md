@@ -15,11 +15,8 @@ The following are the available API's which can be called once the server is up 
 ###/add-user
 - Presents you with a simple form allowing you to enter a name.
 
-###/get-users
-- Retrieves all users from the database.
-
 ###/get-user
-- Presents you with a simple form allowing you to search the database for matches on either firstName, lastName or UID.
+- Presents you with a simple form allowing you to search the database for matches on either firstName, lastName or UID. If you search without any data it will fetch all entries in the database.
 
 ###/delete-user
 - Presents you with a simple form allowing you to delete a matching UID from the database (Use /get-users to fetch a list of current users in the database).

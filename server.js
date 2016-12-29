@@ -61,23 +61,6 @@ app.route('/add-user')
         });
     });
 
-app.get('/get-users', (req, res) => {
-    mongoClient.connect(url, (err, db) => {
-        assert.equal(null, err);
-
-        const collection = db.collection('users');
-        collection.find({}).toArray((err, docs) => {
-            assert.equal(err, null);
-            assert.notEqual(docs.length, 0);
-
-            res.set('Content-Type', 'text/plain');
-            res.status(200);
-            res.json(docs);
-            db.close();
-        });
-    });
-});
-
 app.route('/get-user')
     .get((req, res, next) => {
         res.sendFile(__dirname + "/views/get-user.html");

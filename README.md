@@ -18,6 +18,9 @@ The following are the available API's which can be called once the server is up 
 ###/get-user
 - Presents you with a simple form allowing you to search the database for matches on either firstName, lastName or UID. If you search without any data it will fetch all entries in the database.
 
+###/update-user
+- Presents you with a simple form allowing you to find a matching UID from the database (Use /get-users to fetch a list of current users in the database for the uid). Then update the firstName and lastName with new values for that uid.
+
 ###/delete-user
 - Presents you with a simple form allowing you to delete a matching UID from the database (Use /get-users to fetch a list of current users in the database).
 
@@ -33,7 +36,6 @@ Feel free to contact me with suggestions/ideas/bugs or as above, simply publish 
 - [lmcjt.com](http://lmcjt.com)
 
 ##Pipeline
-- Update users
 - Retrieve users via query
 - Add users via query
 - Validation before POSTs

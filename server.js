@@ -122,6 +122,42 @@ app.route('/delete-user')
         });
     });
 
+app.route('/update-user')
+    .get((req, res, next) => {
+        res.sendFile(__dirname + "/views/update-user.html");
+    })
+    .post((req, res, next) => {
+        mongoClient.connect(url, (err, db) => {
+            assert.equal(null, err);
+
+            const query = {};
+            const updates = {};
+            if (req.body.uid) {
+                query._id = ObjectId(req.body.uid);
+            }
+            if (req.body.firstName) {
+                updates.firstName = req.body.firstName;
+            }
+            if (req.body.lastName) {
+                updates.lastName = req.body.lastName;
+            }
+
+            const collection = db.collection('users');
+            assert.equal(query.hasOwnProperty("_id"), true);
+
+            collection.findOneAndUpdate(query, { $set: updates }, (err, result) => {
+                assert.equal(err, null);
+
+                res.set('Content-Type', 'text/plain');
+                res.status(200);
+                res.send("Updated the data for uid: " + query._id);
+
+                db.close();
+            });
+
+        });
+    });
+
 app.listen(port, (err) => {
     if (err) {
         console.log(err);

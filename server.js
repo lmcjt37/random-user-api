@@ -25,9 +25,11 @@ app.get('/health-check', (req, res) => {
     mongoClient.connect(url, (err, db) => {
       assert.equal(null, err);
 
-      res.set('Content-Type', 'text/plain');
-      res.status(200);
-      res.send("Connected successfully to server!\n");
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.json({
+          "status": 200,
+          "message": "Connected successfully to server!\n"
+      });
 
       db.close();
     });
@@ -52,9 +54,11 @@ app.route('/add-user')
                 assert.equal(err, null);
                 assert.equal(1, result.insertedCount);
 
-                res.set('Content-Type', 'text/plain');
-                res.status(200);
-                res.send("Successfully added " + req.body.firstName + " " + req.body.lastName + " to database.\n");
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.json({
+                    "status": 200,
+                    "message": "Successfully added " + req.body.firstName + " " + req.body.lastName + " to database.\n"
+                });
 
                 db.close();
             });
@@ -85,9 +89,11 @@ app.route('/get-user')
                 assert.equal(err, null);
                 assert.notEqual(docs.length, 0);
 
-                res.set('Content-Type', 'text/plain');
-                res.status(200);
-                res.json(docs);
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.json({
+                    "status": 200,
+                    "data": docs
+                });
 
                 db.close();
             });
@@ -112,9 +118,11 @@ app.route('/delete-user')
             collection.findOneAndDelete(query, (err, result) => {
                 assert.equal(err, null);
 
-                res.set('Content-Type', 'text/plain');
-                res.status(200);
-                res.send("Removed the document with the uid: " + query._id);
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.json({
+                    "status": 200,
+                    "message": "Removed the document with the uid: " + query._id
+                });
 
                 db.close();
             });
@@ -148,9 +156,11 @@ app.route('/update-user')
             collection.findOneAndUpdate(query, { $set: updates }, (err, result) => {
                 assert.equal(err, null);
 
-                res.set('Content-Type', 'text/plain');
-                res.status(200);
-                res.send("Updated the data for uid: " + query._id);
+                res.writeHead(200, {'Content-Type': 'text/plain'});
+                res.json({
+                    "status": 200,
+                    "message": "Updated the data for uid: " + query._id
+                });
 
                 db.close();
             });
